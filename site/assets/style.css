@@ -230,6 +230,7 @@ a:focus-visible, button:focus-visible {
   position: relative;
   box-shadow: var(--shadow);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
+  cursor: pointer;
 }
 
 .skill-card:hover {
@@ -282,11 +283,13 @@ a:focus-visible, button:focus-visible {
 
 .skill-card .skill-title a {
   background: none;
+  background-image: none;
   color: var(--fg);
   padding-bottom: 0;
 }
 .skill-card .skill-title a:hover {
   color: var(--accent);
+  background-image: none;
   text-decoration: none;
 }
 
@@ -305,10 +308,12 @@ a:focus-visible, button:focus-visible {
   word-break: break-all;
   display: inline-block;
   background: none;
+  background-image: none;
   padding-bottom: 0;
 }
 .skill-url:hover {
   color: var(--accent);
+  background-image: none;
 }
 
 /* ===================== */
@@ -405,6 +410,7 @@ a:focus-visible, button:focus-visible {
 }
 .page-header .back:hover {
   background: var(--accent);
+  background-image: none;
   color: var(--card);
   transform: translate(2px, 2px);
   box-shadow: none;
