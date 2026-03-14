@@ -143,14 +143,22 @@ a:focus-visible, button:focus-visible {
   opacity: 0.8;
 }
 
-.hero-index {
+/* ===================== */
+/*   COPYABLE LINES      */
+/* ===================== */
+.copyable-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.copyable-label {
   font-size: 0.95rem;
-  color: var(--fg);
-  margin: 0;
   opacity: 0.7;
 }
 
-.hero-index code {
+.copyable-code {
   font-family: 'Patrick Hand', cursive;
   font-size: 0.95em;
   background: var(--postit);
@@ -158,6 +166,50 @@ a:focus-visible, button:focus-visible {
   border: 2px solid var(--border);
   border-radius: var(--wobbly-sm);
   box-shadow: 2px 2px 0px 0px rgba(45,45,45,0.08);
+  word-break: break-all;
+}
+
+.copy-btn-inline {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.85rem;
+  padding: 0.2em 0.65em;
+  min-height: 36px;
+  min-width: 36px;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--fg);
+  border: 2px solid var(--border);
+  border-radius: var(--wobbly-sm);
+  box-shadow: 2px 2px 0px 0px var(--border);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, color 0.1s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.copy-btn-inline:hover {
+  background: var(--secondary);
+  color: var(--card);
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px var(--border);
+}
+.copy-btn-inline:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.copy-btn-inline.copied {
+  background: var(--accent);
+  color: var(--card);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* Skill URL row inside cards */
+.skill-url-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: var(--space);
+  border-top: 2px dashed var(--muted);
+  margin-top: auto;
 }
 
 /* ===================== */
@@ -252,10 +304,8 @@ a:focus-visible, button:focus-visible {
   color: var(--secondary);
   word-break: break-all;
   display: inline-block;
-  padding: var(--space) 0 0;
-  border-top: 2px dashed var(--muted);
-  margin-top: auto;
   background: none;
+  padding-bottom: 0;
 }
 .skill-url:hover {
   color: var(--accent);
@@ -365,37 +415,49 @@ a:focus-visible, button:focus-visible {
   color: var(--fg);
   margin: var(--space) 0 var(--space-lg);
   opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .skill-url-code {
   font-family: 'Patrick Hand', cursive;
   font-size: 0.95em;
   word-break: break-all;
+  background: var(--postit);
+  padding: 0.2em 0.6em;
+  border: 2px solid var(--border);
+  border-radius: var(--wobbly-sm);
+  box-shadow: 2px 2px 0px 0px rgba(45,45,45,0.08);
 }
 
 .copy-btn {
-  margin-left: var(--space);
-  padding: 0.5rem 1.1rem;
-  min-height: 48px;
-  min-width: 48px;
+  padding: 0.3rem 0.75rem;
+  min-height: 40px;
+  min-width: 40px;
   font-family: 'Patrick Hand', cursive;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   background: var(--card);
   color: var(--fg);
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--wobbly-sm);
-  box-shadow: var(--shadow-hover);
+  box-shadow: 2px 2px 0px 0px var(--border);
   transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, color 0.1s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .copy-btn:hover {
   background: var(--secondary);
   color: var(--card);
-  transform: translate(2px, 2px);
-  box-shadow: none;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px var(--border);
 }
-.copy-btn:active {
-  transform: translate(4px, 4px);
+.copy-btn:active, .copy-btn.copied {
+  background: var(--accent);
+  color: var(--card);
+  transform: translate(2px, 2px);
   box-shadow: none;
 }
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Design Thinking Skills — User-centered design for agentic builders</title>
-  <link rel="stylesheet" href="assets/style.css?v=4">
+  <link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
@@ -13,7 +13,11 @@
       <p class="hero-badge">For hackathon builders &amp; AI agents</p>
       <h1 class="hero-title">Design Thinking Skills<span style="display:inline-block;transform:rotate(12deg);margin-left:0.15em;color:#ff4d4d;">!</span></h1>
       <p class="hero-tagline">User-centered product design with the CROPs framework. Fetch any skill URL — no install, no login.</p>
-      <p class="hero-index">Index: <code id="root-skill-url">/SKILL.md</code></p>
+      <div class="copyable-line">
+        <span class="copyable-label">Index:</span>
+        <code class="copyable-code" id="root-skill-url">/SKILL.md</code>
+        <button type="button" class="copy-btn-inline" data-copy-from="root-skill-url" aria-label="Copy index URL">Copy</button>
+      </div>
       <!-- Hand-drawn arrow pointing down -->
       <svg width="60" height="50" viewBox="0 0 60 50" style="display:block;margin-top:1.5rem;opacity:0.5;" aria-hidden="true">
         <path d="M5 5 Q 15 25, 30 30 Q 45 35, 50 45" stroke="#2d2d2d" stroke-width="2.5" fill="none" stroke-dasharray="6 4" stroke-linecap="round"/>
@@ -26,22 +30,34 @@
         <span class="skill-badge">Start here</span>
         <h2 class="skill-title"><a href="coach/">Coach</a></h2>
         <p class="skill-desc">Design thinking coach: principles, process summary, conversation patterns.</p>
-        <a href="coach/SKILL.md" class="skill-url">coach/SKILL.md</a>
+        <div class="skill-url-row">
+          <a href="coach/SKILL.md" class="skill-url">coach/SKILL.md</a>
+          <button type="button" class="copy-btn-inline" data-copy-path="/coach/SKILL.md" aria-label="Copy Coach skill URL">Copy</button>
+        </div>
       </article>
       <article class="skill-card" style="transform: rotate(0.7deg);">
         <h2 class="skill-title"><a href="process/">Process</a></h2>
         <p class="skill-desc">5-phase framework: Empathize → Define → Ideate → Prototype → Test, with exercises.</p>
-        <a href="process/SKILL.md" class="skill-url">process/SKILL.md</a>
+        <div class="skill-url-row">
+          <a href="process/SKILL.md" class="skill-url">process/SKILL.md</a>
+          <button type="button" class="copy-btn-inline" data-copy-path="/process/SKILL.md" aria-label="Copy Process skill URL">Copy</button>
+        </div>
       </article>
       <article class="skill-card" style="transform: rotate(-0.5deg);">
         <h2 class="skill-title"><a href="personas/">Personas</a></h2>
         <p class="skill-desc">10 user personas with empathy maps, day-in-the-life, JTBD, design prompts.</p>
-        <a href="personas/SKILL.md" class="skill-url">personas/SKILL.md</a>
+        <div class="skill-url-row">
+          <a href="personas/SKILL.md" class="skill-url">personas/SKILL.md</a>
+          <button type="button" class="copy-btn-inline" data-copy-path="/personas/SKILL.md" aria-label="Copy Personas skill URL">Copy</button>
+        </div>
       </article>
       <article class="skill-card" style="transform: rotate(0.4deg);">
         <h2 class="skill-title"><a href="themes/">Themes &amp; CROPS</a></h2>
         <p class="skill-desc">CROPS constraints, four Synthesis themes, and infrastructure.</p>
-        <a href="themes/SKILL.md" class="skill-url">themes/SKILL.md</a>
+        <div class="skill-url-row">
+          <a href="themes/SKILL.md" class="skill-url">themes/SKILL.md</a>
+          <button type="button" class="copy-btn-inline" data-copy-path="/themes/SKILL.md" aria-label="Copy Themes skill URL">Copy</button>
+        </div>
       </article>
     </section>
 
@@ -50,11 +66,18 @@
       <div class="how-to-use-cards">
         <div class="how-card">
           <strong>Tell your agent</strong>
-          <p>"Read this site before you start" or send a skill URL, e.g. <code id="example-url">/coach/SKILL.md</code></p>
+          <p>"Read this site before you start" or send a skill URL:</p>
+          <div class="copyable-line">
+            <code class="copyable-code" id="example-url">/coach/SKILL.md</code>
+            <button type="button" class="copy-btn-inline" data-copy-from="example-url" aria-label="Copy example skill URL">Copy</button>
+          </div>
         </div>
         <div class="how-card">
           <strong>curl / fetch</strong>
-          <p><code>curl -s https://your-domain.com/coach/SKILL.md</code></p>
+          <div class="copyable-line">
+            <code class="copyable-code" id="curl-cmd">curl -s https://your-domain.com/coach/SKILL.md</code>
+            <button type="button" class="copy-btn-inline" data-copy-from="curl-cmd" aria-label="Copy curl command">Copy</button>
+          </div>
         </div>
       </div>
     </section>
@@ -62,10 +85,39 @@
   <script>
     (function() {
       var origin = window.location.origin;
+
+      // Populate dynamic URLs
       var rootEl = document.getElementById('root-skill-url');
       if (rootEl) rootEl.textContent = origin + '/SKILL.md';
       var exEl = document.getElementById('example-url');
       if (exEl) exEl.textContent = origin + '/coach/SKILL.md';
+      var curlEl = document.getElementById('curl-cmd');
+      if (curlEl) curlEl.textContent = 'curl -s ' + origin + '/coach/SKILL.md';
+
+      // Copy handler for all copy buttons
+      document.querySelectorAll('.copy-btn-inline').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var text;
+          var fromId = btn.getAttribute('data-copy-from');
+          var path = btn.getAttribute('data-copy-path');
+          if (fromId) {
+            text = document.getElementById(fromId).textContent;
+          } else if (path) {
+            text = origin + path;
+          }
+          if (text) {
+            navigator.clipboard.writeText(text).then(function() {
+              btn.textContent = 'Copied!';
+              btn.classList.add('copied');
+              setTimeout(function() {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+              }, 1500);
+            });
+          }
+        });
+      });
     })();
   </script>
 </body>
