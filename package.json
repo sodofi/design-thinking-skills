@@ -1,0 +1,10 @@
+{
+  "name": "design-thinking-skills",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-site.js"
+  },
+  "devDependencies": {
+    "marked": "^12.0.0"
+  }
+}
