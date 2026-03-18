@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Personas — Design Thinking Skills</title>
-  <link rel="stylesheet" href="../assets/style.css?v=5">
+  <link rel="stylesheet" href="../assets/style.css?v=3">
 </head>
 <body>
   <div class="container">
@@ -237,7 +237,7 @@
       if (el) el.textContent = window.location.origin + '/personas/SKILL.md';
       var btn = document.querySelector('.copy-btn');
       if (btn) btn.addEventListener('click', function() {
-        navigator.clipboard.writeText(window.location.origin + '/personas/SKILL.md').then(function() { btn.textContent = 'Copied!'; btn.classList.add('copied'); setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500); });
+        navigator.clipboard.writeText(window.location.origin + '/personas/SKILL.md').then(function() { btn.textContent = 'Copied'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); });
       });
     })();
   </script>

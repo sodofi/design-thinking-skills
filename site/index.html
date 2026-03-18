@@ -12,11 +12,11 @@
     <header class="hero">
       <p class="hero-badge">For hackathon builders &amp; AI agents</p>
       <h1 class="hero-title">Design Thinking Skills<span style="display:inline-block;transform:rotate(12deg);margin-left:0.15em;color:#ff4d4d;">!</span></h1>
-      <p class="hero-tagline">User-centered product design with the CROPs framework. Fetch any skill URL — no install, no login.</p>
+      <p class="hero-tagline">User-centered product design with the CROPs framework. Give an agent one link and it gets the full bundle.</p>
       <div class="copyable-line">
-        <span class="copyable-label">Index:</span>
+        <span class="copyable-label">Canonical agent URL:</span>
         <code class="copyable-code" id="root-skill-url">/SKILL.md</code>
-        <button type="button" class="copy-btn-inline" data-copy-from="root-skill-url" aria-label="Copy index URL">Copy</button>
+        <button type="button" class="copy-btn-inline" data-copy-from="root-skill-url" aria-label="Copy canonical skill URL">Copy</button>
       </div>
       <!-- Hand-drawn arrow pointing down -->
       <svg width="60" height="50" viewBox="0 0 60 50" style="display:block;margin-top:1.5rem;opacity:0.5;" aria-hidden="true">
@@ -66,17 +66,18 @@
       <div class="how-to-use-cards">
         <div class="how-card">
           <strong>Tell your agent</strong>
-          <p>"Read this site before you start" or send a skill URL:</p>
+          <p>Send one link and tell it to read this bundled skill file before starting:</p>
           <div class="copyable-line">
-            <code class="copyable-code" id="example-url">/coach/SKILL.md</code>
-            <button type="button" class="copy-btn-inline" data-copy-from="example-url" aria-label="Copy example skill URL">Copy</button>
+            <code class="copyable-code" id="example-url">/SKILL.md</code>
+            <button type="button" class="copy-btn-inline" data-copy-from="example-url" aria-label="Copy bundled skill URL">Copy</button>
           </div>
         </div>
         <div class="how-card">
-          <strong>curl / fetch</strong>
+          <strong>Selective loading</strong>
+          <p>Use individual skill URLs only if you want a smaller context:</p>
           <div class="copyable-line">
-            <code class="copyable-code" id="curl-cmd">curl -s https://your-domain.com/coach/SKILL.md</code>
-            <button type="button" class="copy-btn-inline" data-copy-from="curl-cmd" aria-label="Copy curl command">Copy</button>
+            <code class="copyable-code" id="curl-cmd">https://your-domain.com/coach/SKILL.md</code>
+            <button type="button" class="copy-btn-inline" data-copy-from="curl-cmd" aria-label="Copy standalone skill URL">Copy</button>
           </div>
         </div>
       </div>
@@ -90,9 +91,9 @@
       var rootEl = document.getElementById('root-skill-url');
       if (rootEl) rootEl.textContent = origin + '/SKILL.md';
       var exEl = document.getElementById('example-url');
-      if (exEl) exEl.textContent = origin + '/coach/SKILL.md';
+      if (exEl) exEl.textContent = origin + '/SKILL.md';
       var curlEl = document.getElementById('curl-cmd');
-      if (curlEl) curlEl.textContent = 'curl -s ' + origin + '/coach/SKILL.md';
+      if (curlEl) curlEl.textContent = origin + '/coach/SKILL.md';
 
       // Copy handler for all copy buttons
       document.querySelectorAll('.copy-btn-inline').forEach(function(btn) {

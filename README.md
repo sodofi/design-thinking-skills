@@ -11,7 +11,7 @@ User-centered product design and CROPS framework materials for hackathon builder
 
 ## Website (ethskills-style)
 
-Same architecture as [ethskills.com](https://ethskills.com/): each skill lives at `/{name}/SKILL.md`. The landing page lists skills and their URLs; clicking a skill shows the content and you can copy its skill file URL.
+Same architecture as [ethskills.com](https://ethskills.com/) for individual skills, but with one important simplification: the root `SKILL.md` is a fully bundled file. Agents can ingest the entire skill set from a single URL, while humans can still browse or fetch individual skills at `/{name}/SKILL.md`.
 
 ### Build
 
@@ -22,7 +22,7 @@ npm run build
 
 This generates:
 
-- `site/SKILL.md` — root index (lists all skills; agents can fetch this first).
+- `site/SKILL.md` — root bundled skill file (contains the full skill set; agents only need this one URL).
 - `site/coach/SKILL.md`, `site/process/SKILL.md`, `site/personas/SKILL.md`, `site/themes/SKILL.md` — raw markdown for agents.
 - `site/coach/index.html`, etc. — human-readable pages with rendered content and a “Copy” button for the skill URL.
 
@@ -31,4 +31,4 @@ This generates:
 Serve the `site/` directory from the root of your domain. No build step on the host if you run `npm run build` before deploying.
 
 - **Humans:** Open the landing page, then click a skill to read it; use “Copy” to get the skill URL, or click the `coach/SKILL.md`-style link to open the raw file (URL in the address bar is the skill file).
-- **Agents:** Fetch `/SKILL.md` for the index, or fetch a skill directly (e.g. `curl -s https://your-domain.com/coach/SKILL.md`).
+- **Agents:** Fetch `/SKILL.md` for the complete bundle, or fetch a skill directly (e.g. `curl -s https://your-domain.com/coach/SKILL.md`) if you want narrower context.

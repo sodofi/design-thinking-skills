@@ -34,6 +34,21 @@ function rewriteReferencesForHtml(md) {
     .replace(/`?references\/themes\.md`?/g, "[themes](/themes/)");
 }
 
+/** For the bundled root skill: keep everything in one file and link to anchors */
+function rewriteReferencesForBundle(md) {
+  return md
+    .replace(/`?references\/process\.md`?/g, "[Process](#synthesis-design-process)")
+    .replace(/`?references\/personas\.md`?/g, "[Personas](#user-personas)")
+    .replace(/`?references\/themes\.md`?/g, "[Themes & CROPS](#themes--crops)");
+}
+
+function demoteHeadings(md, levels = 1) {
+  return md.replace(/^(#{1,6})(\s+)/gm, (match, hashes, spacing) => {
+    const nextLevel = Math.min(6, hashes.length + levels);
+    return `${"#".repeat(nextLevel)}${spacing}`;
+  });
+}
+
 function escapeHtml(s) {
   return s
     .replace(/&/g, "&amp;")
@@ -105,31 +120,47 @@ function build() {
     console.log("Wrote", name + "/index.html");
   }
 
-  // Root index skill file (like ethskills.com/SKILL.md): list all skills with paths
+  const bundledSections = SKILLS.map(({ title, source }) => {
+    const srcPath = path.join(ROOT, source);
+    let md = fs.readFileSync(srcPath, "utf8");
+    md = stripFrontmatter(md);
+    md = rewriteReferencesForBundle(md);
+    md = demoteHeadings(md);
+    return md.trim();
+  }).join("\n\n---\n\n");
+
+  // Root skill file: fully bundled so one URL is enough for agents
   const indexMd = `# Design Thinking Skills
 
-User-centered product design for agentic builders — CROPs as design constraints.
+This file is the complete bundled skill set for this site.
 
-Fetch any URL below and read it into your context.
+If you are an AI agent, read this file first. You do not need to fetch any other URLs to get the full skill content. The additional skill URLs are convenience entry points for humans and selective loading.
 
-**All skills (this index):** /SKILL.md
+## Included skills
 
-**Individual skills:**
-- /coach/SKILL.md — Coach (start here). ${SKILLS.find(s => s.name === "coach").description}
-- /process/SKILL.md — Process. ${SKILLS.find(s => s.name === "process").description}
-- /personas/SKILL.md — Personas. ${SKILLS.find(s => s.name === "personas").description}
-- /themes/SKILL.md — Themes & CROPS. ${SKILLS.find(s => s.name === "themes").description}
+- Coach. ${SKILLS.find(s => s.name === "coach").description}
+- Process. ${SKILLS.find(s => s.name === "process").description}
+- Personas. ${SKILLS.find(s => s.name === "personas").description}
+- Themes & CROPS. ${SKILLS.find(s => s.name === "themes").description}
 
-## How to use
+## Standalone skill URLs
 
-Give your AI agent this site's URL or a skill URL. No install, no login.
+- /coach/SKILL.md
+- /process/SKILL.md
+- /personas/SKILL.md
+- /themes/SKILL.md
 
-- **One link:** Send your agent the site URL; it can fetch /SKILL.md first to get this index, then fetch the skills it needs.
-- **Direct skill:** \`curl -s https://your-domain.com/coach/SKILL.md\`
-- Start with the Coach; it references Process, Personas, and Themes.
+## Usage
+
+- Send agents one link: \`/SKILL.md\`
+- Use standalone skill URLs only when you want a narrower context window
+
+---
+
+${bundledSections}
 `;
   fs.writeFileSync(path.join(SITE, "SKILL.md"), indexMd, "utf8");
-  console.log("Wrote SKILL.md (root index)");
+  console.log("Wrote SKILL.md (root bundle)");
 }
 
 build();
